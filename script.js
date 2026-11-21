@@ -139,7 +139,7 @@ function populateSubNav(preDir) {
 }
 
 function goHome() {
-    window.location.href = `${getpreDir()}`;
+    window.location.href = `${getPreDir()}`;
 }
 
 function createBlogRow(title, link, docs, date, desc, imageUrl, isLeft) {
