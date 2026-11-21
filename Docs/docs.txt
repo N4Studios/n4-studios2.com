@@ -1,0 +1,50 @@
+// Mission Tech
+[
+    {
+        "type": "project_card",
+        "title": "Transfer Video #### ## ##",
+        "link": "${getPreDir()}Assets/Blender/carRender.mp4",
+        "docs": "",
+        "date": "September 19, 2023",
+        "desc": "BMW driving on road created using Blender.",
+        "videoUrl": "https://n4-studios.com/Assets/blog/BestOfPackTV/BOPTV-05-08-23.mp4"
+    },
+    {
+        "type": "log_entry",
+        "date": "May 05, 2023 & May 08, 2023",
+        "text": "<b>May 05, 2023</b><br>I worked on the title sequence and editing the videos down so they could be used inside the blender outro project.<br><br><b>May 08, 2023</b><br>Inserted and edited the videos into the outro project. Each video had to have as low as resolution as possible so that Blender could render it nicely with the hardware that we had. I wasnt able to fit as many videos as I wanted to in the beginning so I just increased each video size and re-used some videos and just shifted their start times.",
+        "media_type": "video",
+        "media_url": "https://n4-studios.com/Assets/blog/BestOfPackTV/BOPTV-05-08-23.mp4"
+    },
+    {
+        "type": "log_entry",
+        "date": "May 05, 2023 & May 08, 2023",
+        "text": "<b>May 05, 2023</b><br>I worked on the title sequence and editing the videos down so they could be used inside the blender outro project.<br><br><b>May 08, 2023</b><br>Inserted and edited the videos into the outro project. Each video had to have as low as resolution as possible so that Blender could render it nicely with the hardware that we had. I wasnt able to fit as many videos as I wanted to in the beginning so I just increased each video size and re-used some videos and just shifted their start times.",
+        "media_type": "video",
+        "media_url": "https://n4-studios.com/Assets/blog/BestOfPackTV/BOPTV-05-08-23.mp4"
+    }
+]
+
+// Best Of Pack TV
+[
+    {
+      "type": "log_entry",
+      "date": "April 28, 2023",
+      "text": "Ben started to gather the videos and compile them into one video using Adobe Premier Pro. The more videos, the better. But it takes time to search, download, and edit clips. I noticed that when using more than 15 videos on Blender, it slowes it down quite a bit.<br><br>I thought to either start zoomed into one video and zoom out to all of the videos shaped like the Pack TV logo, or start zoomed out and videos fall into place passing the camera making the shape of the Pack TV logo. We ended choosing to start zoomed in.",
+      "media_type": "image",
+      "media_url": "https://ik.imagekit.io/n4studios/Assets/Media/Blender/BOPTV050223.png?tr=w-800"
+    },
+    {
+      "type": "log_entry",
+      "date": "May 05, 2023 & May 08, 2023",
+      "text": "<b>May 05, 2023</b><br>I worked on the title sequence and editing the videos down so they could be used inside the blender outro project.<br><br><b>May 08, 2023</b><br>Inserted and edited the videos into the outro project. Each video had to have as low as resolution as possible so that Blender could render it nicely with the hardware that we had. I wasnt able to fit as many videos as I wanted to in the beginning so I just increased each video size and re-used some videos and just shifted their start times.",
+      "media_type": "video",
+      "media_url": "https://n4-studios.com/Assets/blog/BestOfPackTV/BOPTV-05-08-23.mp4"
+    },
+    {
+      "type": "final_video",
+      "title": "FINAL",
+      "media_type": "video",
+      "media_url": "https://ik.imagekit.io/n4studios/Assets/Media/Blender/BOPTVFINAL.mp4"
+    }
+]

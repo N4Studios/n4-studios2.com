@@ -47,11 +47,11 @@ jobs:
           repository: N4Studios/BeginnersStart
           path: Projects/BeginnersStart
 
-      - name: Checkout SEMAG
-        uses: actions/checkout@v7
-        with:
-          repository: N4Studios/SEMAG
-          path: Projects/SEMAG
+      # - name: Checkout SEMAG
+      #   uses: actions/checkout@v7
+      #   with:
+      #     repository: N4Studios/SEMAG
+      #     path: Projects/SEMAG
 
       - name: Checkout ColorLand5
         uses: actions/checkout@v7
@@ -85,14 +85,6 @@ jobs:
             --exclude='.github/' \
             Projects/BeginnersStart/ \
             _site/Projects/BeginnersStart/
-
-          # Copy SEMAG
-          mkdir -p _site/Projects/SEMAG
-          rsync -a \
-            --exclude='.git/' \
-            --exclude='.github/' \
-            Projects/SEMAG/ \
-            _site/Projects/SEMAG/
 
           # Copy ColorLand5
           mkdir -p _site/Projects/ColorLand5

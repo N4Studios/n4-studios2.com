@@ -18,10 +18,9 @@ function resolvePath(pathStr) {
 
 // Extracts the slug from the URL path (e.g., /Docs/BestOfPackTV/ -> best-of-pack-tv)
 function getDocSlugFromURL() {
-    let path = window.location.pathname.replace(/\/$/, ""); // Remove trailing slash
+    let path = window.location.pathname.replace(/\/$/, "");
     let folderName = path.substring(path.lastIndexOf('/') + 1);
 
-    // Converts CamelCase / PascalCase to kebab-case (e.g. BestOfPackTV -> best-of-pack-tv)
     return folderName
         .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
         .toLowerCase();
@@ -64,16 +63,19 @@ async function renderDocPage() {
     `);
 
     let logEntriesHtml = "";
-    let finalCardsHtml = "";
+    let extraCardsHtml = "";
 
     // 2. Parse sections from content_json array
-    contentList.forEach((item) => {
-        const mediaUrl = resolvePath(item.media_url);
+    contentList.forEach((item, index) => {
+        const mediaUrl = resolvePath(item.media_url || item.imageUrl || item.videoUrl);
+        const link = resolvePath(item.link);
+        const docs = resolvePath(item.docs);
+        const isVideo = item.media_type === "video" || !!item.videoUrl || (mediaUrl && mediaUrl.endsWith(".mp4"));
 
         if (item.type === "log_entry") {
             let mediaElement = "";
             if (mediaUrl) {
-                mediaElement = item.media_type === "video"
+                mediaElement = isVideo
                     ? `<video muted autoplay loop playsinline><source src="${mediaUrl}" type="video/mp4"></video>`
                     : `<img src="${mediaUrl}">`;
             }
@@ -82,7 +84,7 @@ async function renderDocPage() {
                 <div class="doc-split">
                     <div class="split-elm">
                         <h3>${item.date}</h3>
-                        <p>${item.text}</p>
+                        <p>${item.text || item.desc}</p>
                     </div>
                     <div class="split-elm">
                         ${mediaElement}
@@ -90,12 +92,48 @@ async function renderDocPage() {
                 </div>
                 <br>
             `;
-        } else if (item.type === "final_video") {
-            let mediaElement = item.media_type === "video"
+        } 
+        // --- Project Cards (Supports both image & video) ---
+        else if (item.type === "project_card" || item.type === "project") {
+            let projectTitle = link 
+                ? `<a class='blog-title' href='${link}'></a>` 
+                : `<p class='blog-title'></p>`;
+            
+            let blogLinks = `<div class='blog-links'>`;
+            if (link) blogLinks += `<a href='${link}'><span class='openLink'></span></a>`;
+            if (docs) blogLinks += `<a href='${docs}'><span class='openDocs'></span></a>`;
+            blogLinks += `</div>`;
+
+            let isLeft = index % 2 === 0;
+            
+            let mediaElement = isVideo
+                ? `<video class="blog-blob-img" width="40%" muted autoplay loop playsinline><source src="${mediaUrl}" type="video/mp4"></video>`
+                : `<img class="blog-blob-img" width="40%" src="${mediaUrl}" alt="Project Image">`;
+
+            extraCardsHtml += `
+                <div class="doc-card">
+                    <div class="blog-row visible ${isLeft ? 'left' : 'right'}" style="margin: 0; width: 100%;">
+                        <div class="blog-content">
+                            <div class="blog-titleRow">
+                                ${$(projectTitle).html(item.title)[0].outerHTML}
+                                ${blogLinks}
+                            </div>
+                            <div>
+                                <h3>${item.date}</h3>
+                                <p>${item.desc || item.text}</p>
+                            </div>
+                        </div>
+                        ${mediaElement}
+                    </div>
+                </div>
+            `;
+        } 
+        else if (item.type === "final_video") {
+            let mediaElement = isVideo
                 ? `<video muted autoplay loop playsinline><source src="${mediaUrl}" type="video/mp4"></video>`
                 : `<img src="${mediaUrl}">`;
 
-            finalCardsHtml += `
+            extraCardsHtml += `
                 <div class="doc-card">
                     <div class="doc-full">
                         <h1>${item.title || "FINAL"}</h1>
@@ -118,9 +156,9 @@ async function renderDocPage() {
         `);
     }
 
-    // 4. Append Final video/image section if present
-    if (finalCardsHtml) {
-        containerInner.append(finalCardsHtml);
+    // 4. Append Project cards / Final videos if present
+    if (extraCardsHtml) {
+        containerInner.append(extraCardsHtml);
     }
 }
 
