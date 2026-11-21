@@ -10,6 +10,15 @@
         "videoUrl": "https://n4-studios.com/Assets/blog/BestOfPackTV/BOPTV-05-08-23.mp4"
     },
     {
+        "type": "project_card",
+        "title": "Transfer Video #### ## ##",
+        "link": "${getPreDir()}Assets/Blender/carRender.mp4",
+        "docs": "",
+        "date": "September 19, 2023",
+        "desc": "BMW driving on road created using Blender.",
+        "videoUrl": "https://n4-studios.com/Assets/blog/BestOfPackTV/BOPTV-05-08-23.mp4"
+    },
+    {
         "type": "log_entry",
         "date": "May 05, 2023 & May 08, 2023",
         "text": "<b>May 05, 2023</b><br>I worked on the title sequence and editing the videos down so they could be used inside the blender outro project.<br><br><b>May 08, 2023</b><br>Inserted and edited the videos into the outro project. Each video had to have as low as resolution as possible so that Blender could render it nicely with the hardware that we had. I wasnt able to fit as many videos as I wanted to in the beginning so I just increased each video size and re-used some videos and just shifted their start times.",
