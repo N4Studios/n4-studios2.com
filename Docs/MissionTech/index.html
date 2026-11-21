@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N4-Studios | Docs</title>
+    <!-- Load jQuery from the official Google CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../../script.js" defer></script>
+    <script src="../docs.js" defer></script>
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body onload="handleResize(); toggleRows();">
+    <img src="https://yt3.googleusercontent.com/SwjJZkp8JPPLKKusztY0kRPW_FZYziccAkAIJrSyZ7rMWQelLn_OTnUlL8VtcAp6euU1o00YxA=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj" id="head">
+    
+
+    <div id="hamburgerContainer">
+        <button id="hamburgerBtn" onclick="toggleSideMenu()"></button>
+    </div>
+
+    <div id="homeContainer">
+        <button id="homeBtn" onclick="goHome()"></button>
+    </div>
+
+    <div id="sideMenu" onload="populateSideMenu('../../')">
+    </div>
+    
+    <div id="content">
+        <div id="box">
+            <div id="subNav" class="subNav"></div>
+            <br><br>
+            <div class="doc-container" id="docContainer">
+                <div class="doc-container-inner">
+                    <!-- Dynamic cards will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
