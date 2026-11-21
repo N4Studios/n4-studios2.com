@@ -50,19 +50,31 @@
     margin-left: -10px;
 }
 
-.split-elm img{
+.split-elm img, .split-elm video{
     width: 100%;
     border-radius: 10px;
     border: 2px solid #37c8d3;
     margin-top: 15px
 }
 
-.doc-split h1,.doc-split h2,.doc-split h3,.doc-split h4,.doc-split h5,.doc-split h6 {
+.doc-full video{
+    width: 100%;
+    border-radius: 10px;
+    border: 2px solid #37c8d3;
+    margin-top: 15px
+}
+
+.doc-split h1, .doc-full h1 {
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+.doc-split h2,.doc-split h3,.doc-split h4,.doc-split h5,.doc-split h6 {
     text-align: left;
     margin-left: -10px;
 }
 
-.doc-full h1,.doc-full h2,.doc-full h3,.doc-full h4,.doc-full h5,.doc-full h6 {
+.doc-full h2,.doc-full h3,.doc-full h4,.doc-full h5,.doc-full h6 {
     text-align: left;
 }
 
