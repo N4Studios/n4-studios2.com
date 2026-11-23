@@ -37,6 +37,29 @@ async function fetchDocPage(docSlug) {
     }
 }
 
+// Helper function to build media elements (Image, MP4 Video, or iFrame)
+function createMediaElement(rawUrl, mediaTypeOverride, customClass = "") {
+    const mediaUrl = resolvePath(rawUrl);
+    if (!mediaUrl) return "";
+
+    const isIframe = mediaTypeOverride === "iframe" || 
+                     mediaUrl.includes("/preview") || 
+                     mediaUrl.includes("drive.google.com") || 
+                     mediaUrl.includes("youtube.com/embed");
+
+    const isVideo = mediaTypeOverride === "video" || 
+                    mediaUrl.endsWith(".mp4") || 
+                    mediaUrl.endsWith(".webm");
+
+    if (isIframe) {
+        return `<iframe class="${customClass}" src="${mediaUrl}" width="100%" height="480" allow="autoplay" frameborder="0" allowfullscreen></iframe>`;
+    } else if (isVideo) {
+        return `<video class="${customClass}" ${customClass ? 'width="40%"' : 'width="100%"'} muted autoplay loop playsinline><source src="${mediaUrl}" type="video/mp4"></video>`;
+    } else {
+        return `<img class="${customClass}" ${customClass ? 'width="40%"' : ''} src="${mediaUrl}" alt="Media Content">`;
+    }
+}
+
 async function renderDocPage() {
     const slug = getDocSlugFromURL();
     const data = await fetchDocPage(slug);
@@ -67,18 +90,12 @@ async function renderDocPage() {
 
     // 2. Parse sections from content_json array
     contentList.forEach((item, index) => {
-        const mediaUrl = resolvePath(item.media_url || item.imageUrl || item.videoUrl);
+        const targetUrl = item.iframeUrl || item.iframe || item.media_url || item.imageUrl || item.videoUrl;
         const link = resolvePath(item.link);
         const docs = resolvePath(item.docs);
-        const isVideo = item.media_type === "video" || !!item.videoUrl || (mediaUrl && mediaUrl.endsWith(".mp4"));
 
         if (item.type === "log_entry") {
-            let mediaElement = "";
-            if (mediaUrl) {
-                mediaElement = isVideo
-                    ? `<video muted autoplay loop playsinline><source src="${mediaUrl}" type="video/mp4"></video>`
-                    : `<img src="${mediaUrl}">`;
-            }
+            const mediaElement = createMediaElement(targetUrl, item.media_type);
 
             logEntriesHtml += `
                 <div class="doc-split">
@@ -93,7 +110,7 @@ async function renderDocPage() {
                 <br>
             `;
         } 
-        // --- Project Cards (Supports both image & video) ---
+        // --- Project Cards (Supports Image, Video, & iFrame Embeds) ---
         else if (item.type === "project_card" || item.type === "project") {
             let projectTitle = link 
                 ? `<a class='blog-title' href='${link}'></a>` 
@@ -105,10 +122,7 @@ async function renderDocPage() {
             blogLinks += `</div>`;
 
             let isLeft = index % 2 === 0;
-            
-            let mediaElement = isVideo
-                ? `<video class="blog-blob-img" width="40%" muted autoplay loop playsinline><source src="${mediaUrl}" type="video/mp4"></video>`
-                : `<img class="blog-blob-img" width="40%" src="${mediaUrl}" alt="Project Image">`;
+            const mediaElement = createMediaElement(targetUrl, item.media_type, "blog-blob-img");
 
             extraCardsHtml += `
                 <div class="doc-card">
@@ -128,10 +142,8 @@ async function renderDocPage() {
                 </div>
             `;
         } 
-        else if (item.type === "final_video") {
-            let mediaElement = isVideo
-                ? `<video muted autoplay loop playsinline><source src="${mediaUrl}" type="video/mp4"></video>`
-                : `<img src="${mediaUrl}">`;
+        else if (item.type === "final_video" || item.type === "final_media") {
+            const mediaElement = createMediaElement(targetUrl, item.media_type || "iframe");
 
             extraCardsHtml += `
                 <div class="doc-card">
@@ -156,7 +168,7 @@ async function renderDocPage() {
         `);
     }
 
-    // 4. Append Project cards / Final videos if present
+    // 4. Append Project cards / Final video cards if present
     if (extraCardsHtml) {
         containerInner.append(extraCardsHtml);
     }
