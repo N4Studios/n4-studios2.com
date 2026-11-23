@@ -57,6 +57,10 @@
     margin-top: 15px
 }
 
+.split-elm iframe {
+    height: 350px;
+}
+
 .doc-full video{
     width: 100%;
     border-radius: 10px;
