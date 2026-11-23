@@ -53,7 +53,7 @@ function createMediaElement(rawUrl, mediaTypeOverride, customClass = "") {
                     mediaUrl.endsWith(".webm");
 
     if (isIframe) {
-        return `<iframe class="${customClass}" src="${mediaUrl}" allow="autoplay" frameborder="0" allowfullscreen></iframe>`;
+        return `<iframe class="${customClass}" src="${mediaUrl}" allow="autoplay" height="300px;" frameborder="0" allowfullscreen></iframe>`;
     } else if (isVideo) {
         return `<video class="${customClass}" ${customClass ? 'width="40%"' : 'width="100%"'} muted autoplay loop playsinline><source src="${mediaUrl}" type="video/mp4"></video>`;
     } else {
